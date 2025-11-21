@@ -1,16 +1,21 @@
 import { create } from "zustand";
 
 export const useMessage = create((set)=>({
-messages:[{
-    id: 1,
-    text: "",
-    users: "You"
-}],
-inputValue: "",
+messages:[],
+// setinput:(input)=>set({inputValue:input}),
 
-setinput:(input)=>set({inputValue:input}),
-setmessages:(newMessage)=>set({messages:newMessage}),
+Addmessages:(newMessage)=>set((state)=>({
+    messages:[...state.messages,{
+        id: new Date(),
+        text: newMessage,
+        user: "You",
+        time: new Date().toLocaleString("th-TH")
+    }]
+})),
 
-sendMessage:(message)=>set((state)=>({message:[...state.messages.text,message]}))
+// AddMessage:(message)=>set((state)=>({
+//     messages:[{...state.messages,
+//     text: message,
+//     users: "You"}]}))
 
 }))
