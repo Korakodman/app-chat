@@ -7,3 +7,9 @@
 .header-list{
   @apply text-2xl mt-6 p-2 border-[#948979] border-2  place-items-center hover:text-[#948979]
 }
+.input-bar{
+  @apply text-xl border-2 focus:outline-none border-[#948979] p-2 mb-2
+}
+.label-text{ 
+  @apply text-2xl mb-2
+}

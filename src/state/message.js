@@ -1,7 +1,8 @@
 import { create } from "zustand";
 
 export const useMessage = create((set)=>({
-messages:[],
+messages:[ { id: 1, user: "Alice", text: "Hi there!" ,time: new Date().toLocaleString("th-TH")
+     },],
 // setinput:(input)=>set({inputValue:input}),
 
 Addmessages:(newMessage)=>set((state)=>({
