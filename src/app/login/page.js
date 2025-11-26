@@ -4,6 +4,8 @@ import { useLogin } from "@/state/Login";
 import { useForm } from "@/hook/UseForm";
 import { FormLogin } from "@/components/FormLoginUI";
 import { FormRegister } from "@/components/FormRegisterUI";
+import { FetchLoginAPI } from "@/app/auth/FetchLogin";
+import { FetchRegisterAPI } from "../auth/FetchRegister";
 export default function page() {
   
   // ButtonFormChange
@@ -11,8 +13,14 @@ export default function page() {
   const FormControll = () => {
     if (Form) {
       setForm(false);
+      formLoginState.username = ""
+      formLoginState.password = ""
     } else {
       setForm(true);
+      formRegisterState.username = ""
+      formRegisterState.password = ""
+      formRegisterState.repeatpass = ""
+
     }
   };
 
@@ -22,8 +30,10 @@ export default function page() {
     const { name, value } = e.target;
     if (Form) {
       setFormLogin((prev) => ({ ...prev, [name]: value }));
+    
     } else {
       setFormRegister((prev) => ({ ...prev, [name]: value }));
+      
     }
   };
 
@@ -54,15 +64,15 @@ export default function page() {
 
   // SubmitFormLogin
 
-  const formLoginSubmit = (e) => {
+ async function formLoginSubmit (e)  {
     e.preventDefault();
-    console.log(formLoginState);
+   const respone = await FetchLoginAPI("http://localhost:3000/api/LoginAPI",formLoginState);
   };
 
   // SubmitFormRegister
-  const formRegisterSubmit = (e) => {
+  async function formRegisterSubmit  (e) {
     e.preventDefault();
-    console.log(formRegisterState);
+  const respone = await FetchRegisterAPI("http://localhost:3000/api/RegistAPI",formRegisterState)
   };
   // Form Register UI
   return (
