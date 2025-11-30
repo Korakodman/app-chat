@@ -66,13 +66,25 @@ export default function page() {
 
  async function formLoginSubmit (e)  {
     e.preventDefault();
-   const respone = await FetchLoginAPI("http://localhost:3000/api/LoginAPI",formLoginState);
-  };
+      const respone = await FetchLoginAPI("http://localhost:3000/api/LoginAPI",formLoginState);
+  //     if(formRegisterState.password === formRegisterState.password){
+  //       console.log("Correct Password")
+  // }else{
+  //   alert("Password is Wrong Try again")
+  // }
+};
+  
 
   // SubmitFormRegister
   async function formRegisterSubmit  (e) {
     e.preventDefault();
-  const respone = await FetchRegisterAPI("http://localhost:3000/api/RegistAPI",formRegisterState)
+      if(formRegisterState.password === formRegisterState.repeatpass){
+        console.log("Correct Password")
+        const respone = await FetchRegisterAPI("http://localhost:3000/api/RegistAPI",formRegisterState)
+      }else{
+        alert("Wrong Password")
+        return
+      }
   };
   // Form Register UI
   return (
