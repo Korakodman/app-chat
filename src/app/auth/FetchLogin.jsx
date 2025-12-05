@@ -8,7 +8,9 @@ export async function FetchLoginAPI(url,data) {
           },
           body: JSON.stringify({ username:data.username, password:data.password }),
         });
-        if(!response.ok) throw new Error("Login Fail")
+        if(!response.ok) {
+         return "login fail" 
+        }
         return response.json();
         // console.log(result);
       } catch (error) {

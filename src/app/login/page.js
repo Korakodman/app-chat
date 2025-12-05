@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLogin } from "@/state/Login";
 import { useForm } from "@/hook/UseForm";
 import { FormLogin } from "@/components/FormLoginUI";
@@ -8,6 +8,23 @@ import { FetchLoginAPI } from "@/app/auth/FetchLogin";
 import { FetchRegisterAPI } from "../auth/FetchRegister";
 export default function page() {
   
+
+// API Fetch DATA 
+
+ useEffect(()=>{
+   async function FetchData(params) {
+      try {
+     const data = await fetch("http://localhost:3000/api/UserAPI",)
+     const users = await data.json()
+     console.log(users)
+      } catch (error) {
+          console.log(error)
+      }
+    }
+    FetchData()
+ })
+
+
   // ButtonFormChange
   const [Form, setForm] = useState(true);
   const FormControll = () => {
@@ -66,12 +83,18 @@ export default function page() {
 
  async function formLoginSubmit (e)  {
     e.preventDefault();
-      const respone = await FetchLoginAPI("http://localhost:3000/api/LoginAPI",formLoginState);
-  //     if(formRegisterState.password === formRegisterState.password){
-  //       console.log("Correct Password")
-  // }else{
-  //   alert("Password is Wrong Try again")
-  // }
+  if(formLoginState.username === ""){
+        alert("ใส่ชื่อด้วย")
+  }else if(formLoginState.password === ""){
+        alert("ใส่รหัสผ่านด้วย")
+  }
+  else{
+   const error =  await FetchLoginAPI("http://localhost:3000/api/LoginAPI",formLoginState);
+   if(error === "login fail"){
+     alert("รหัสผิด")
+   }
+  }
+
 };
   
 

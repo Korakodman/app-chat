@@ -14,12 +14,16 @@ export async function GET(req) {
     }
 }
 export async function POST(req) {
-     await ConnentToDatabase(process.env.PUBLICAPI)
      try {
-        const body = await req.json()
-        console.log(body)
-        
-       return NextResponse.json(body,{status:200})
+       await ConnentToDatabase(process.env.PUBLICAPI)
+        const {username,password} = await req.json()
+        const user = await UserChat.findOne({username})
+        if(!user || user.password !== password){
+         
+         return NextResponse.json({success: false,message:"false"},{status : 401})
+        }else{
+          return NextResponse.json({message:"success"})
+        }
      } catch (error) {
        return NextResponse.json({ error: error.message })
 

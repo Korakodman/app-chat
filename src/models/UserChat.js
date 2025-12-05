@@ -5,6 +5,6 @@ const UserChatSchema = new mongoose.Schema({
     password:String,
     message:[] 
 },{collection:"User"})
-const UserChat = mongoose.models.User || mongoose.model("UserChat",UserChatSchema);
+const UserChat = mongoose.models.User || mongoose.model("User",UserChatSchema);
 
 export default UserChat
