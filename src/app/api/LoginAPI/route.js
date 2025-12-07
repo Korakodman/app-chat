@@ -22,7 +22,7 @@ export async function POST(req) {
          
          return NextResponse.json({success: false,message:"false"},{status : 401})
         }else{
-          return NextResponse.json({message:"success"})
+          return NextResponse.json(user,{status:200})
         }
      } catch (error) {
        return NextResponse.json({ error: error.message })

@@ -2,12 +2,14 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect,} from "react";
+import { useUserLogin } from "@/state/Login";
 export default function Home() {
 
 // Page Controll Login
 let router = useRouter()
+  const {setUser,logout,user} = useUserLogin()
    const ControllPageUser = (login) =>{
-   if(login){
+   if(user || sessionStorage.getItem("Login")){
      router.push("/chat")
    }else{
     router.push("/login")
@@ -17,9 +19,7 @@ let router = useRouter()
   
 useEffect(()=>{
   // GET sessionStorage Login
-  sessionStorage.setItem("Login",false)
-  let isLogin = sessionStorage.getItem("Login")
-   if(isLogin === "true"){
+   if(user){
     ControllPageUser(true)
    }else{
     ControllPageUser(false)

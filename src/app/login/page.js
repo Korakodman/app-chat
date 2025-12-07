@@ -1,15 +1,20 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { useLogin } from "@/state/Login";
+import { useUserLogin } from "@/state/Login";
 import { useForm } from "@/hook/UseForm";
 import { FormLogin } from "@/components/FormLoginUI";
 import { FormRegister } from "@/components/FormRegisterUI";
 import { FetchLoginAPI } from "@/app/auth/FetchLogin";
 import { FetchRegisterAPI } from "../auth/FetchRegister";
+import { useRouter } from "next/navigation";
 export default function page() {
+
   
+  // State Controll 
+  const {setUser,logout,user} = useUserLogin()
 
 // API Fetch DATA 
+
 
  useEffect(()=>{
    async function FetchData(params) {
@@ -17,12 +22,13 @@ export default function page() {
      const data = await fetch("http://localhost:3000/api/UserAPI",)
      const users = await data.json()
      console.log(users)
+      console.log(user)
       } catch (error) {
           console.log(error)
       }
     }
     FetchData()
- })
+ },[user])
 
 
   // ButtonFormChange
@@ -79,6 +85,8 @@ export default function page() {
     repeatpass: "",
   });
 
+  let router = useRouter()
+
   // SubmitFormLogin
 
  async function formLoginSubmit (e)  {
@@ -89,9 +97,16 @@ export default function page() {
         alert("ใส่รหัสผ่านด้วย")
   }
   else{
-   const error =  await FetchLoginAPI("http://localhost:3000/api/LoginAPI",formLoginState);
-   if(error === "login fail"){
+   const respone =  await FetchLoginAPI("http://localhost:3000/api/LoginAPI",formLoginState);
+   if(respone === "login fail"){
      alert("รหัสผิด")
+   }
+   setFormLogin.username = ""
+   setFormLogin.password = ""
+   setUser(respone)
+   if(respone){
+    sessionStorage.setItem("Login",true)
+    router.push("/chat")
    }
   }
 

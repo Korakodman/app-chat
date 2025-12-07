@@ -4,9 +4,9 @@ import React from 'react'
 import { IoChatbubbleEllipses } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import { FaHome } from "react-icons/fa";
-
+import { useUserLogin } from "@/state/Login";
 export default function navbar() {
-
+ const {setUser,logout,user} = useUserLogin()
    const Sidebar = ({href,icon,text})=>{
       return(
       <Link 
@@ -17,12 +17,13 @@ export default function navbar() {
       )
    }
   const Logout = ({name}) =>{
-     const logoutbtn = () =>{
-      console.log("logout")
-     }
+           const BtnLogut = ()=>{
+             sessionStorage.setItem("Login",false)
+            logout()
+           }
 
     return(
-      <button onClick={logoutbtn} className=' font-bold border-2 h-fit p-4 border-[#948979] rounded-xl -mb-60 hover:cursor-pointer'>{name}</button>
+      <button onClick={BtnLogut} className=' font-bold border-2 h-fit p-4 border-[#948979] rounded-xl -mb-60 hover:cursor-pointer'>{name}</button>
     )
   }
   return (

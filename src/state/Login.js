@@ -1,19 +1,7 @@
 import { create } from "zustand";
 
-export const useLogin = create(()=>({
-    users:[{
-        username : "",
-        password : ""
-    }],
-    // AddUser For Login
-  UsernameLogin:(username)=> set((state)=>({
-    users:[...state.username,{
-        username : username,
-    }]
-  })),
-  PaswordLogin:(password)=> set((state)=>({
-    users:[state.password,{
-        password : password
-    }]
-  })),
+export const useUserLogin = create((set)=>({
+  user: null,
+  setUser: (data) => set({ user: data }),
+  logout: () => set({ user: null })
 }))
