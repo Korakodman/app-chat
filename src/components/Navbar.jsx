@@ -5,6 +5,7 @@ import { IoChatbubbleEllipses } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import { FaHome } from "react-icons/fa";
 import { useUserLogin } from "@/state/Login";
+import { useRouter } from 'next/navigation'
 export default function navbar() {
  const {setUser,logout,user} = useUserLogin()
    const Sidebar = ({href,icon,text})=>{
@@ -16,9 +17,11 @@ export default function navbar() {
       </Link>
       )
    }
+  let route = useRouter()
   const Logout = ({name}) =>{
            const BtnLogut = ()=>{
-             sessionStorage.setItem("Login",false)
+            sessionStorage.setItem("Login",false)
+            route.push("/login")
             logout()
            }
 

@@ -11,6 +11,7 @@ export default function page() {
         const InputRef = useRef();
       const { messages,Addmessages,} = useMessage()
          useEffect(() => {
+       
             InputRef.current?.scrollIntoView({ behavior: "smooth" });
           }, [messages]);
         

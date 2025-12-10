@@ -8,22 +8,21 @@ export default function Home() {
 // Page Controll Login
 let router = useRouter()
   const {setUser,logout,user} = useUserLogin()
-   const ControllPageUser = (login) =>{
-   if(user || sessionStorage.getItem("Login")){
-     router.push("/chat")
-   }else{
-    router.push("/login")
-   }
-   }
-
+  
   
 useEffect(()=>{
   // GET sessionStorage Login
-   if(user){
-    ControllPageUser(true)
-   }else{
-    ControllPageUser(false)
-   }
+//  const islogin = 
+//     Boolean(user) || sessionStorage.getItem("Login") === true
+
+//    if(islogin){
+//    if(router.pathname !== "/chat"){
+//        router.push("/chat")
+//     }
+//    }else{
+//    if(router.pathname !== "/login"){
+//     router.push("/login")}
+//    }
 })
   return (
 

@@ -22,7 +22,16 @@ export async function POST(req) {
          
          return NextResponse.json({success: false,message:"false"},{status : 401})
         }else{
-          return NextResponse.json(user,{status:200})
+          const res =  NextResponse.json(user,{success:true})
+
+
+          res.cookies.set("token","Login-status",{
+            httpOnly:true,
+            secure:true,
+            path:"/",
+            maxAge : 60*60,
+          })
+          return res
         }
      } catch (error) {
        return NextResponse.json({ error: error.message })
