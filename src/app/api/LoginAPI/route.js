@@ -2,7 +2,6 @@ import { ConnentToDatabase } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import UserChat from "@/models/UserChat";
-
 // GET API
 export async function GET(req) {
     await ConnentToDatabase(process.env.PUBLICAPI)
@@ -24,13 +23,14 @@ export async function POST(req) {
         }else{
           const res =  NextResponse.json(user,{success:true})
 
-
-          res.cookies.set("token","Login-status",{
+          res.cookies.set("token",jwtToken,{
             httpOnly:true,
             secure:true,
             path:"/",
             maxAge : 60*60,
-          })
+            sameSite: "strict",
+          },)
+        
           return res
         }
      } catch (error) {

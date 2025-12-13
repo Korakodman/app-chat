@@ -7,7 +7,8 @@ import { FaHome } from "react-icons/fa";
 import { useUserLogin } from "@/state/Login";
 import { useRouter } from 'next/navigation'
 export default function navbar() {
- const {setUser,logout,user} = useUserLogin()
+ const {setUser,logout,user,setLogin} = useUserLogin()
+ 
    const Sidebar = ({href,icon,text})=>{
       return(
       <Link 
@@ -18,11 +19,16 @@ export default function navbar() {
       )
    }
   let route = useRouter()
-  const Logout = ({name}) =>{
+ function Logout  ({name}) {
            const BtnLogut = ()=>{
-            sessionStorage.setItem("Login",false)
+            setLogin(true)
             route.push("/login")
             logout()
+            try {
+              fetch("http://localhost:3000/api/Logout")
+            } catch (error) {
+              console.log(error)
+            }
            }
 
     return(
