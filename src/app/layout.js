@@ -7,25 +7,31 @@ import { useEffect } from "react";
  
 
 export default function RootLayout({ children }) {
-  const {setUser,logout,user,seteLogin,login} = useUserLogin()
+  const {setUser,logout,user,setLogin,login} = useUserLogin()
 
-  //  useEffect(()=>{
-  //   fetch("http://localhost:3000/api/me")
-  //   .then(res => res.ok ? res.json : null)
-  //   .then(data =>{
-  //     if(data?.user){
-  //       setUser(data.user)
-  //       seteLogin(true)
-  //     }
-  //   })
-  //  })
+   useEffect(()=>{
+      async function verifyCookie(params) {
+  const res =  await fetch("http://localhost:3000/api/Me")
+      if(res.ok){
+        const data = await res.json()
+        setLogin(data)
+      }else{
+        console.log("Not Found Cookie")
+      }
+    
+  }
+  console.log("User:", user)
+    console.log("Islogin",login)
+  verifyCookie()
+},[user])
+  
 
   return (
     <html lang="en">
       <body
         className="antialiased flex "
       > 
-     { user || login ? <Navbar/> :""}
+     { user && login ? <Navbar/> :""}
         {children}
         
       </body>

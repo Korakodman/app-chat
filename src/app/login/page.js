@@ -21,8 +21,6 @@ export default function page() {
       try {
      const data = await fetch("http://localhost:3000/api/UserAPI",)
      const users = await data.json()
-     console.log(users)
-      console.log(user)
       } catch (error) {
           console.log(error)
       }
@@ -105,7 +103,6 @@ export default function page() {
    setFormLogin.password = ""
    setUser(respone)
    if(respone){
-    sessionStorage.setItem("Login",true)
     router.push("/chat")
    }
   }
