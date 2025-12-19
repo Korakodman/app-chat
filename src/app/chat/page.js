@@ -2,32 +2,46 @@
 import Link from 'next/link';
 import { useState ,useRef,useEffect} from 'react';
   import { useMessage } from '@/state/message';
+  import { socket } from "@/lib/socket";
 export default function page() {
       // const [messages, setMessages] = useState([
       //   { id: 1, user: "Alice", text: "Hi there!" ,time: new Date().toLocaleString("th-TH")
       //   },
       // ]);
       // ใช้ useRef ในการเก็บข้อมูลนั้นๆเฉพาะเจาะจง
+      const username = "You"; // หรือมาจาก state / context
+
         const InputRef = useRef();
-      const { messages,Addmessages,} = useMessage()
+   const { messages, addMessage } = useMessage();
          useEffect(() => {
-       
-            InputRef.current?.scrollIntoView({ behavior: "smooth" });
-          }, [messages]);
-        
-  const ButtonHandle = ()=>{
-  if(InputRef.current.value){
-    Addmessages(InputRef.current.value)
-   InputRef.current.value = ""
-  }else{
-    alert("ใส่ข้อมูล")
-  }
-}
+             socket.connect()
+             socket.emit("join", username);
+         socket.on("receive-message", (data) => {
+    addMessage(data);
+  });
+  socket.on("system", (msg) => {
+    addMessage({
+      id: Date.now(),
+      user: "System",
+      text: msg,
+      time: new Date().toLocaleString("th-TH"),
+    });
+  }); 
+;
+return () => socket.off();
+          }, []);
+
+  const sendMessage = () => {
+  const text = InputRef.current.value;
+  if (!text) return;
+  socket.emit("send-message", text);
+  InputRef.current.value = "";
+};
+
 // Funtion KeyBoard on press
 const handleKeyPress = (e) => {
  if (e.key === "Enter"){
- Addmessages(InputRef.current.value);
- InputRef.current.value = ""
+ sendMessage()
 }
         };  
   return (
@@ -53,7 +67,7 @@ const handleKeyPress = (e) => {
         >
           {msg.user !== "You" && <span className="font-semibold">{msg.user}: </span>}
           {msg.text}
-         <div><span className=' opacity-50'> {msg.time}</span></div>
+         <div><span className=' opacity-50'></span></div>
         </div>
       </div>
     ))}
@@ -70,7 +84,7 @@ const handleKeyPress = (e) => {
            onKeyDown={handleKeyPress}
         />
           <button
-          onClick={ButtonHandle}
+          onClick={sendMessage}
           className="bg-[#948979] hover:bg-[#DFD0B8] text-[#222831] w-[200px] px-4 rounded-r-md"
         >
           Send

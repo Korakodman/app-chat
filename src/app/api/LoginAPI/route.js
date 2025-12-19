@@ -2,6 +2,8 @@ import { ConnentToDatabase } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import UserChat from "@/models/UserChat";
+import { Server } from "socket.io";
+const io = new Server()
 // GET API
 export async function GET(req) {
     // await ConnentToDatabase(process.env.PUBLICAPI)
@@ -27,7 +29,7 @@ export async function POST(req) {
           } },
   { status: 200 })
 
-          res.cookies.set("Login","true",{
+          res.cookies.set("Login",true,{
             httpOnly:true,
            secure: process.env.NODE_ENV === "production",
             path:"/",
@@ -41,3 +43,8 @@ export async function POST(req) {
 
      }
 }
+
+// Socket.io
+io.on("connection",(socket)=>{
+  console.log("a user connected")
+})

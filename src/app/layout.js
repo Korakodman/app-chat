@@ -10,20 +10,21 @@ export default function RootLayout({ children }) {
   const {setUser,logout,user,setLogin,login} = useUserLogin()
 
    useEffect(()=>{
-      async function verifyCookie(params) {
-  const res =  await fetch("http://localhost:3000/api/Me")
-      if(res.ok){
-        const data = await res.json()
-        setLogin(data)
-      }else{
-        console.log("Not Found Cookie")
-      }
-    
-  }
-  console.log("User:", user)
-    console.log("Islogin",login)
-  verifyCookie()
-},[user])
+  //     async function verifyCookie(params) {
+  // const res =  await fetch("http://localhost:3000/api/Me")
+  //     if(res.ok){
+  //       const data = await res.json()
+  //       // setLogin(data)
+  //       console.log("fetch" ,data)
+  //       setLogin(data)
+  //         console.log("state" ,login)
+
+  //     }else{
+  //       console.log("Not Found Cookie")
+  //     }
+  // }
+  // verifyCookie()
+},[])
   
 
   return (
@@ -31,7 +32,7 @@ export default function RootLayout({ children }) {
       <body
         className="antialiased flex "
       > 
-     { user && login ? <Navbar/> :""}
+     { user  ? <Navbar/> :""}
         {children}
         
       </body>

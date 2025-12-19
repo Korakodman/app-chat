@@ -25,7 +25,7 @@ export default function navbar() {
        method: "GET",
       credentials: "include",
      });
-      route.push("/login");
+      route.push("/login"); 
       
     };
   function Logout({ name }) {

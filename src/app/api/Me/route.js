@@ -5,5 +5,5 @@ import { ConnentToDatabase } from "@/lib/mongodb"
 export async function GET(req) {
     const token = req.cookies.get("Login")?.value
 
-  return NextResponse.json({login:token},{status: 200})
+  return NextResponse.json(token,{status: 200})
 }
