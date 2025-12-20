@@ -4,7 +4,7 @@ export const useMessage = create((set) => ({
   messages: [
     {
       id: 1,
-      user: "System",
+      user: "ระบบ",
       text: "Welcome to chat 👋",
       time: new Date().toLocaleString("th-TH"),
     },

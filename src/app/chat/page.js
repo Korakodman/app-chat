@@ -9,14 +9,18 @@ export default function page() {
       //   },
       // ]);
       // ใช้ useRef ในการเก็บข้อมูลนั้นๆเฉพาะเจาะจง
-      const username = "You"; // หรือมาจาก state / context
+    // หรือมาจาก state / context
 
         const InputRef = useRef();
    const { messages, addMessage } = useMessage();
+   const [username, setUsername] = useState("");
+
          useEffect(() => {
-             socket.connect()
+            const username = prompt("ใส่ชื่อด้วยจ้าา") 
              socket.emit("join", username);
+             setUsername(username)
          socket.on("receive-message", (data) => {
+            console.log("receive:", data);
     addMessage(data);
   });
   socket.on("system", (msg) => {
@@ -28,8 +32,10 @@ export default function page() {
     });
   }); 
 ;
-return () => socket.off();
-          }, []);
+return () =>   {
+  socket.off("receive-message");
+  socket.off("system");;
+          }}, []);
 
   const sendMessage = () => {
   const text = InputRef.current.value;
@@ -55,7 +61,7 @@ const handleKeyPress = (e) => {
       <div
         key={msg.id}
         className={`flex ${
-          msg.user === "You" ? "justify-end" : "justify-start"
+          msg.user === username ? "justify-end" : "justify-start"
         }`}
       >
         <div
@@ -65,7 +71,7 @@ const handleKeyPress = (e) => {
               : "bg-[#393E46] text-[#DFD0B8] rounded-tl-none"
           }`}
         >
-          {msg.user !== "You" && <span className="font-semibold">{msg.user}: </span>}
+          {msg.user !== username && <span className="font-semibold">{msg.user}: </span>}
           {msg.text}
          <div><span className=' opacity-50'></span></div>
         </div>
