@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+// import { NextResponse } from "next/server";
 
-export async function GET() {
-  const res = NextResponse.json({ success: true })
-  res.cookies.delete("Login", { path: "/" })
-  return res
-}
+// export async function GET() {
+//   const res = NextResponse.json({ success: true })
+//   res.cookies.delete("Login", { path: "/" })
+//   return res
+// }
