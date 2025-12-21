@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
       <body
         className="antialiased flex "
       > 
-     { user  ? <Navbar/> :""}
+     <Navbar/>
         {children}
         
       </body>
