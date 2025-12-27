@@ -13,7 +13,7 @@ export default function navbar() {
     return (
       <Link href={href} className="flex ">
         <div className="mt-1">{icon}</div>
-        <span className="ml-2">{text}</span>
+        <span className="ml-2 hidden md:block">{text}</span>
       </Link>
     );
   };
@@ -33,17 +33,17 @@ export default function navbar() {
     return (
       <button
         onClick={BtnLogut}
-        className=" font-bold border-2 h-fit p-4 border-[#948979] rounded-xl -mb-60 hover:cursor-pointer"
+        className=" font-bold border-2 h-fit p-2 md:p-4  border-[#948979] rounded-xl   hover:cursor-pointer"
       >
         {name}
       </button>
     );
   }
   return (
-    <aside className="bg-[#393E46] p-4 h-screen md:w-64 w-44  justify-between grid ">
-      <div className="border-2 m-4 text-2xl p-2 text-center rounded-xl h-fit">
+    <aside className="bg-[#393E46] wd:p-4 p-4 h-screen md:w-64   justify-between grid ">
+      <div className="border-2 m-4 md:text-2xl md:p-2 p-2 text-center rounded-xl h-fit">
         <Link href="/">
-          <h1>Chat-App</h1>
+          <h1 className=" ">Chat-App</h1>
         </Link>
       </div>
 

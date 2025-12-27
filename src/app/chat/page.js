@@ -17,6 +17,7 @@ export default function page() {
 
          useEffect(() => {
             const username = prompt("ใส่ชื่อด้วยจ้าา") 
+
              socket.emit("join", username);
              setUsername(username)
          socket.on("receive-message", (data) => {
@@ -51,7 +52,7 @@ const handleKeyPress = (e) => {
 }
         };  
   return (
-   <div className='h-screen w-screen p-2'>
+   <div className='h-screen  w-screen p-2'>
    {/* BackGround UI */}
        <div className="flex flex-col h-11/12 bg-[#222831] text-[#DFD0B8]">
     <div className=' p-2 grid message-box1-server'>
@@ -81,7 +82,7 @@ const handleKeyPress = (e) => {
 
    </div>
     </div>
-    <div className=' border-2 p-2 h-auto flex'>
+    <div className=' border-2 p-2 h-auto w-96 md:w-auto flex ml-4 md:ml-0'>
         <input
           type="text"
           placeholder="Type a message..."

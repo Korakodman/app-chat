@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className="antialiased flex "
+        className="antialiased flex  "
       > 
      <Navbar/>
         {children}

@@ -27,7 +27,7 @@ useEffect(()=>{
   return (
 
 
-    <div className="h-screen w-screen p-2">
+    <div className="md:h-screen md:w-screen p-2">
       <main className="">
         <div>
           Main Web
