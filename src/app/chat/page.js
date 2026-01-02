@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useState ,useRef,useEffect} from 'react';
   import { useMessage } from '@/state/message';
   import { socket } from "@/lib/socket";
+  import { useRouter } from 'next/navigation';
 export default function page() {
       // const [messages, setMessages] = useState([
       //   { id: 1, user: "Alice", text: "Hi there!" ,time: new Date().toLocaleString("th-TH")
@@ -12,40 +13,39 @@ export default function page() {
     // หรือมาจาก state / context
 
         const InputRef = useRef();
+        const route = useRouter()
+        const hasJoined = useRef(false);
    const { messages, addMessage } = useMessage();
    const [username ,setUsername] = useState()
          useEffect(() => {
-              const user = prompt("ใส่ชื่อด้วยจ้าา") 
-            
+              const user = localStorage.getItem("user")
+        
              if(!user){
-              console.log("ชื่อว่าง")
-              alert("ใส่ชื่อด้วยครับ")
-              let user = prompt("ได้โปรดใส่ชื่อ")
-              if(!user){
-                socket.emit("join", "gust");
-                 setUsername("gust")
-                localStorage.setItem("user","gust")
-              }
-             }else{
-              setUsername(user)
-             socket.emit("join", user);
+               alert("โปรดใส่ชื่อด้วย")
+               route.push("/enter-name")
              }
-           
-             localStorage.setItem("user",user)
-         socket.on("receive-message", (data) => {
-        addMessage(data);
-  });
+               setUsername(user);
+                if (!hasJoined.current) {
+    socket.emit("join", user);
+    hasJoined.current = true;
+  }
+         
+          const handleReceiveMessage = (data) => {
+    addMessage(data);
+  };
+
+         socket.on("receive-message",handleReceiveMessage);
   socket.on("system", (msg) => {
     addMessage({
       id: Date.now(),
-      user: "System",
+      user: "ระบบ",
       text: msg,
       time: new Date().toLocaleString("th-TH"),
     });
   }); 
 ;
 return () =>   {
-  socket.off("receive-message");
+  socket.off("receive-message",handleReceiveMessage);
   socket.off("system");;
           }}, []);
 
