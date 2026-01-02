@@ -3,12 +3,12 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { useUserLogin } from "@/state/Login";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
  
 
 export default function RootLayout({ children }) {
   const {setUser,logout,user,setLogin,login} = useUserLogin()
-
+  const [hide,sethide] = useState(false)
    useEffect(()=>{
   //     async function verifyCookie(params) {
   // const res =  await fetch("http://localhost:3000/api/Me")
@@ -24,6 +24,12 @@ export default function RootLayout({ children }) {
   //     }
   // }
   // verifyCookie()
+  const userlocal = localStorage.getItem("user")
+  if(userlocal){
+    sethide(!false)
+  }else{
+    sethide(false)
+  }
 },[])
   
 
@@ -32,7 +38,7 @@ export default function RootLayout({ children }) {
       <body
         className="antialiased flex  "
       > 
-     <Navbar/>
+     {hide ? <Navbar/> : ""}
         {children}
         
       </body>

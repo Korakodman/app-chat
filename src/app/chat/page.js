@@ -13,16 +13,27 @@ export default function page() {
 
         const InputRef = useRef();
    const { messages, addMessage } = useMessage();
-   const [username, setUsername] = useState("");
-
+   const [username ,setUsername] = useState()
          useEffect(() => {
-            const username = prompt("ใส่ชื่อด้วยจ้าา") 
-
-             socket.emit("join", username);
-             setUsername(username)
+              const user = prompt("ใส่ชื่อด้วยจ้าา") 
+            
+             if(!user){
+              console.log("ชื่อว่าง")
+              alert("ใส่ชื่อด้วยครับ")
+              let user = prompt("ได้โปรดใส่ชื่อ")
+              if(!user){
+                socket.emit("join", "gust");
+                 setUsername("gust")
+                localStorage.setItem("user","gust")
+              }
+             }else{
+              setUsername(user)
+             socket.emit("join", user);
+             }
+           
+             localStorage.setItem("user",user)
          socket.on("receive-message", (data) => {
-            console.log("receive:", data);
-    addMessage(data);
+        addMessage(data);
   });
   socket.on("system", (msg) => {
     addMessage({

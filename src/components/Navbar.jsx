@@ -4,11 +4,12 @@ import React from "react";
 import { IoChatbubbleEllipses } from "react-icons/io5";
 import { IoMdSettings } from "react-icons/io";
 import { FaHome } from "react-icons/fa";
-import { useUserLogin } from "@/state/Login";
+import { useUserLogin, } from "@/state/Login";
+import { useMessage } from "@/state/message";
 import { useRouter } from "next/navigation";
 export default function navbar() {
   const { setUser, logout, user, setLogin } = useUserLogin();
-
+   const { messages, addMessage } = useMessage();
   const Sidebar = ({ href, icon, text }) => {
     return (
       <Link href={href} className="flex ">
@@ -19,14 +20,14 @@ export default function navbar() {
   };
   let route = useRouter();
  async function BtnLogut  ()  {
-      setLogin(null);
-      logout();
-     await fetch("http://localhost:3000/api/Logout",{
-       method: "GET",
-      credentials: "include",
-     });
-      route.push("/login"); 
-      
+    //   setLogin(null);
+    //   logout();
+    //  await fetch("http://localhost:3000/api/Logout",{
+    //    method: "GET",
+    //   credentials: "include",
+    //  });
+    //   route.push("/login"); 
+     window.location.reload()
     };
   function Logout({ name }) {
 
@@ -39,6 +40,10 @@ export default function navbar() {
       </button>
     );
   }
+   function changename(){
+    prompt()
+   }
+  
   return (
     <aside className="bg-[#393E46] wd:p-4 p-4 h-screen md:w-64   justify-between grid ">
       <div className="border-2 m-4 md:text-2xl md:p-2 p-2 text-center rounded-xl h-fit">
@@ -61,7 +66,9 @@ export default function navbar() {
           </li>
         </ul>
       </div>
-      <div className="flex justify-center mt-[250px]">
+      <div className="grid justify-center mt-[250px]">
+        <div onClick={changename}>ChangeName</div>
+        <p>ใส่ชื่อ</p>
         <Logout name="Logout"></Logout>
       </div>
     </aside>
