@@ -23,6 +23,10 @@ useEffect(()=>{
 //    if(router.pathname !== "/login"){
 //     router.push("/login")}
 //    }
+
+if(!localStorage.getItem("user")){
+  router.push("/enter-name  ")
+}
 })
   return (
 

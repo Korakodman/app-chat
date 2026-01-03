@@ -9,7 +9,8 @@ export const useMessage = create((set) => ({
       time: new Date().toLocaleString("th-TH"),
     },
   ],
-
+  hide: null,
+  changehide: (status)=>set({hide:status}),
   addMessage: (message) =>
     set((state) => ({
       messages: [...state.messages, message],
