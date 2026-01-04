@@ -15,18 +15,25 @@ export default function page() {
     if(e.key ==="Enter"){
          localStorage.setItem("user",username.current.value)
          changehide(true)
-      route.push("/chat")
+         route.push("/chat")
     }
+ }
+ const btnHandle = () =>{
+    localStorage.setItem("user",username.current.value)
+         changehide(true)
+         route.push("/chat")
  }
   return (
     <div className=' grid items-center w-full justify-center  h-screen '>
       <div className=''>
-        <p className=' text-3xl'>Welcome To App Chat Basic</p>
+        <p className='ml-4 text-3xl'>Welcome To App Chat Basic</p>
         </div>
         <div className='mb-96 ml-10 grid'>
             <p className='p-2 font-bold text-2xl '>Insert Your Name</p>
             <input  onKeyDown={inputHandle} ref={username} className=' border-2 p-2 rounded-xl text-2xl focus:outline-none' type='text' placeholder='Your Name'></input>
-            <button className='mt-4 border-2 p-2 hover:cursor-pointer hover:bg-gray-700 font-bold' >Submit</button>
+           <div className=' text-center'>
+             <button className='mt-4 border-2 px-4 py-2 hover:cursor-pointer hover:bg-gray-700 font-bold ' onClick={btnHandle} >Submit</button>
+           </div>
         </div>
      
         </div>
