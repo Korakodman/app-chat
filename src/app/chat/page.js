@@ -19,7 +19,6 @@ export default function page() {
    const [username ,setUsername] = useState()
          useEffect(() => {
               const user = localStorage.getItem("user")
-        
              if(!user){
                alert("โปรดใส่ชื่อด้วย")
                route.push("/enter-name")

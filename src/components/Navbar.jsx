@@ -49,6 +49,7 @@ export default function navbar() {
     }
    }
   
+
   return (
     <aside className="bg-[#393E46] wd:p-4 p-4 h-screen md:w-64   justify-between grid ">
       <div className="border-2 m-4 md:text-2xl md:p-2 p-2 text-center rounded-xl h-fit">
