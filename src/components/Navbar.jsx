@@ -9,7 +9,8 @@ import { useMessage } from "@/state/message";
 import { useRouter } from "next/navigation";
 export default function navbar() {
   const { setUser, logout, user, setLogin } = useUserLogin();
-   const { messages, addMessage } = useMessage();
+   const { messages, addMessage,hide,changehide } = useMessage();
+   
   const Sidebar = ({ href, icon, text }) => {
     return (
       <Link href={href} className="flex ">
@@ -27,7 +28,7 @@ export default function navbar() {
     //   credentials: "include",
     //  });
     //   route.push("/login"); 
-     window.location.reload()
+     changename()
     };
   function Logout({ name }) {
 
@@ -41,7 +42,11 @@ export default function navbar() {
     );
   }
    function changename(){
-    prompt()
+    if(localStorage.getItem("user")){
+      localStorage.setItem("user","")
+      route.push("/enter-name")
+      changehide(false)
+    }
    }
   
   return (
@@ -66,9 +71,8 @@ export default function navbar() {
           </li>
         </ul>
       </div>
-      <div className="grid justify-center mt-[250px]">
-        <div onClick={changename}>ChangeName</div>
-        <p>ใส่ชื่อ</p>
+      <div className="grid justify-center mt-[250px] ">
+        <div className=" font-bold border-2 h-fit p-2 md:p-4  border-[#948979] rounded-xl   hover:cursor-pointer" onClick={changename}>เปลี่ยนชื่อ</div>
         <Logout name="Logout"></Logout>
       </div>
     </aside>
